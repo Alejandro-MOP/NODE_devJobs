@@ -33,18 +33,18 @@ const vacantesSchema = new mongoose.Schema({
         type: String,
         lowercase: true
     },
-    skills: {
-        type: [String],
-        candidatos: [{
+    skills: [String],
+    candidatos: [{
             nombre: String,
             email: String,
             cv: String
-        }]
-    }
+    }]
+
 });
-vacantesSchema.pre('save', next => {
+
+vacantesSchema.pre('save', function(next) {
     const url = slug(this.titulo);
     this.url = `${url}-${shortid.generate()}`;
     next();
-})
+});
 module.exports = mongoose.model('Vacante', vacantesSchema);

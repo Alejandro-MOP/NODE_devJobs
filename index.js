@@ -3,19 +3,25 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const router = require('./routes');
 const path = require('path')
-const app = express();
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const bodyParser = require('body-parser');
 
 require('dotenv').config({path: 'variables.env'});
+
+const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded( { extend: true } ));
 
 conectarBD();
 
 app.engine('handlebars',
     exphbs({
-        defaultLayout: 'Layout'
+        defaultLayout: 'Layout',
+        helpers: require('./helpers/handlebars')
     })
 );
 

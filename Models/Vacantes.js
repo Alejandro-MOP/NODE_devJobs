@@ -19,7 +19,8 @@ const vacantesSchema = new mongoose.Schema({
     },
     salario: {
         type: String,
-        default: 0
+        default: 0,
+        trim: true
     },
     contrato: {
         type: String,

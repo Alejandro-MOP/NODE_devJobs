@@ -8,13 +8,15 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const bodyParser = require('body-parser');
-
+const morgan = require('morgan')
 require('dotenv').config({path: 'variables.env'});
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( { extend: true } ));
+
+app.use(morgan("dev"));
 
 conectarBD();
 
